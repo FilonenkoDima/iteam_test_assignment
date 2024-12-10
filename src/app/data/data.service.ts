@@ -114,10 +114,6 @@ export class DataService {
     5131, 15979, 29285, 34029, 56557, 64476, 79039, 87690, 88286, 89600,
   ]);
 
-  private dummyData_5 = signal([83241, 557770, 2932171, 4706140, 6028153]);
-
-  private dummyData_1 = signal([83241]);
-
   get getDummyData_1000() {
     return this.dummyData_1000.asReadonly();
   }
@@ -130,11 +126,64 @@ export class DataService {
     return this.dummyData_10.asReadonly();
   }
 
-  get getDummyData_5() {
-    return this.dummyData_5.asReadonly();
+  sumOfSquares(n: number) {
+    let tmp = n;
+    const squareCheck = (i: number) => {
+      let s = Math.floor(Math.sqrt(i));
+      return s * s === i;
+    };
+    if (squareCheck(n)) {
+      return 1;
+    }
+    for (let i = 1; i <= Math.floor(Math.sqrt(n)); ++i) {
+      if (squareCheck(n - i * i)) {
+        return 2;
+      }
+    }
+    while (tmp % 4 === 0) {
+      tmp = tmp >> 2;
+    }
+    if (tmp % 8 === 7) {
+      return 4;
+    }
+    return 3;
   }
 
-  get getDummyData_1() {
-    return this.dummyData_1.asReadonly();
+  sumOfSquares_BFS(n: number) {
+    if (n <= 0) return 0;
+
+    // Precompute perfect squares up to the square root of n
+    const squares: number[] = [];
+    for (let i = 1; i * i <= n; i++) {
+      squares.push(i * i);
+    }
+
+    // Helper function to find the minimal count using BFS
+    function bfs(target: number) {
+      const queue = [target];
+      const visited = new Set();
+      let depth = 0;
+
+      while (queue.length > 0) {
+        const size = queue.length;
+        depth++;
+
+        for (let i = 0; i < size; i++) {
+          const current: number = queue.shift()!;
+          for (const square of squares) {
+            const next = current - square;
+            if (next === 0) return depth;
+            if (next > 0 && !visited.has(next)) {
+              visited.add(next);
+              queue.push(next);
+            }
+          }
+        }
+      }
+      console.log(1);
+      return depth;
+    }
+
+    return bfs(n);
   }
 }

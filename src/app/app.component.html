@@ -1,18 +1,1 @@
-<div>
-  <ul>
-    @for(data of DUMMY_DATA; track $index){
-    <li>{{ $index }}. DATA: {{ data }} RESULT: {{ sumOfSquares(data) }}.</li>
-    }
-  </ul>
-
-  <ul>
-    @for(data of DUMMY_DATA; track $index){
-    <li>
-      {{ $index }}. DATA: {{ data }} RESULT: {{ sumOfSquares_BFS(data) }}.
-    </li>
-    }
-  </ul>
-  <!-- {{ sumOfSquares(83241) }}
-  <br />
-  {{ sumOfSquares_BFS(83241) }} -->
-</div>
+<app-output-data />
