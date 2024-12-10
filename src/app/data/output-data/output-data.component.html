@@ -1,0 +1,41 @@
+<form>
+  <h2>Сhoose the amount of data</h2>
+  <div class="btn-group">
+    <button (click)="setData_10()">10</button>
+    <button (click)="setData_100()">100</button>
+    <button (click)="setData_1000()">1000</button>
+  </div>
+
+  @if(results.length){
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>Value</th>
+          <th>BFS</th>
+          <th>BFS Time (ms)</th>
+          <th>Lagrange</th>
+          <th>Lagrange Time (ms)</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(result of results; track $index) {
+        <tr>
+          <td>{{ result.index }}.</td>
+          <td>{{ result.value }}</td>
+          <td>{{ result.bfs }}</td>
+          <td>{{ result.bfsTime | number }}</td>
+          <td>{{ result.lagrange }}</td>
+          <td>{{ result.lagrangeTime | number }}</td>
+        </tr>
+        } @empty { No data }
+      </tbody>
+    </table>
+  </div>
+
+  <p>BFS total time: {{ bfsTotalTime | number }} ms.</p>
+  <p>BFS total time: {{ lagrangeTotalTime | number }} ms.</p>
+
+  }
+</form>
