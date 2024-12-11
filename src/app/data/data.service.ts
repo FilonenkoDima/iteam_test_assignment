@@ -126,7 +126,7 @@ export class DataService {
     return this.dummyData_10.asReadonly();
   }
 
-  sumOfSquares(n: number) {
+  sumOfSquares_Lagrange(n: number) {
     let tmp = n;
     const squareCheck = (i: number) => {
       let s = Math.floor(Math.sqrt(i));
@@ -152,7 +152,6 @@ export class DataService {
   sumOfSquares_BFS(n: number) {
     if (n <= 0) return 0;
 
-    // Precompute perfect squares up to the square root of n
     const squares: number[] = [];
     for (let i = 1; i * i <= n; i++) {
       squares.push(i * i);
@@ -180,7 +179,6 @@ export class DataService {
           }
         }
       }
-      console.log(1);
       return depth;
     }
 

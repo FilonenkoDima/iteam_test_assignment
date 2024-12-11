@@ -1,0 +1,44 @@
+.backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+dialog {
+  width: 90%;
+  max-width: 75rem;
+  background-color: #144757;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  padding: 3rem;
+  top: 5rem;
+  text-align: left;
+  color: #d0c2e1;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  opacity: 0.6;
+  font-size: 1.2rem;
+  font-weight: 900;
+  transition: all 0.3s;
+}
+
+button:hover {
+  scale: 1.5;
+  opacity: 1;
+}

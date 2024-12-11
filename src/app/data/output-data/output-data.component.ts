@@ -1,57 +1,57 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../data.service';
 import { DecimalPipe } from '@angular/common';
+import { CalculationResult } from '../calculation-result.model';
+import { AboutComponent } from './about/about.component';
 
 @Component({
   selector: 'app-output-data',
   standalone: true,
-  imports: [FormsModule, DecimalPipe],
+  imports: [DecimalPipe, FormsModule, AboutComponent],
   templateUrl: './output-data.component.html',
-  styleUrl: './output-data.component.css',
+  styleUrls: ['./output-data.component.css'],
 })
 export class OutputDataComponent {
   private dataService = inject(DataService);
-  results: {
-    index: number;
-    value: number;
-    bfs: number;
-    bfsTime: number;
-    lagrange: number;
-    lagrangeTime: number;
-  }[] = [];
+  results: CalculationResult[] = [];
+  isOpenAbout = signal(false);
 
   setData_10() {
-    this.loadResults(this.dataService.getDummyData_10());
+    this.setData(this.dataService.getDummyData_10());
   }
 
   setData_100() {
-    this.loadResults(this.dataService.getDummyData_100());
+    this.setData(this.dataService.getDummyData_100());
   }
 
   setData_1000() {
-    this.loadResults(this.dataService.getDummyData_1000());
+    this.setData(this.dataService.getDummyData_1000());
   }
 
-  private loadResults(data: number[]) {
-    this.results = data.map((value, index) => {
-      const startBfs = performance.now();
-      const bfsResult = this.dataService.sumOfSquares_BFS(value);
-      const endBfs = performance.now();
+  private setData(data: number[]) {
+    this.results = data.map((value, index) =>
+      this.calculateResults(value, index)
+    );
+  }
 
-      const startLagrange = performance.now();
-      const lagrangeResult = this.dataService.sumOfSquares(value);
-      const endLagrange = performance.now();
+  private calculateResults(value: number, index: number): CalculationResult {
+    const startBfs = performance.now();
+    const bfsResult = this.dataService.sumOfSquares_BFS(value);
+    const endBfs = performance.now();
 
-      return {
-        index,
-        value,
-        bfs: bfsResult,
-        bfsTime: endBfs - startBfs,
-        lagrange: lagrangeResult,
-        lagrangeTime: endLagrange - startLagrange,
-      };
-    });
+    const startLagrange = performance.now();
+    const lagrangeResult = this.dataService.sumOfSquares_Lagrange(value);
+    const endLagrange = performance.now();
+
+    return {
+      index,
+      value,
+      bfs: bfsResult,
+      bfsTime: endBfs - startBfs,
+      lagrange: lagrangeResult,
+      lagrangeTime: endLagrange - startLagrange,
+    };
   }
 
   get bfsTotalTime(): number {
@@ -60,5 +60,13 @@ export class OutputDataComponent {
 
   get lagrangeTotalTime(): number {
     return this.results.reduce((acc, curVal) => acc + curVal.lagrangeTime, 0);
+  }
+
+  onOpenAbout() {
+    this.isOpenAbout.set(true);
+  }
+
+  onCloseAbout() {
+    this.isOpenAbout.set(false);
   }
 }

@@ -46,7 +46,7 @@ button:active {
 }
 
 .table-container::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
 
@@ -56,7 +56,7 @@ button:active {
 
 .table-container::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #555;
 }
 
@@ -72,4 +72,17 @@ td {
 
 tr:hover {
   background-color: #b5ab87;
+}
+
+.about {
+  display: block;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.about:hover,
+.about:link,
+.about:active {
+  color: #4d543b;
+  transform: scale(1.2);
 }

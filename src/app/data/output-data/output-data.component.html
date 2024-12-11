@@ -1,5 +1,7 @@
+@if(isOpenAbout()) { <app-about (close)="onCloseAbout()" /> }
+
 <form>
-  <h2>Сhoose the amount of data</h2>
+  <h2>Choose the amount of data</h2>
   <div class="btn-group">
     <button (click)="setData_10()">10</button>
     <button (click)="setData_100()">100</button>
@@ -29,13 +31,16 @@
           <td>{{ result.lagrange }}</td>
           <td>{{ result.lagrangeTime | number }}</td>
         </tr>
-        } @empty { No data }
+        } @empty {
+        <p>No data</p>
+        }
       </tbody>
     </table>
   </div>
 
   <p>BFS total time: {{ bfsTotalTime | number }} ms.</p>
-  <p>BFS total time: {{ lagrangeTotalTime | number }} ms.</p>
-
+  <p>Lagrange total time: {{ lagrangeTotalTime | number }} ms.</p>
   }
+
+  <a class="about" (click)="onOpenAbout()">About</a>
 </form>
